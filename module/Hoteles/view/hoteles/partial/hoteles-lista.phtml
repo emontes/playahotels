@@ -1,0 +1,108 @@
+<?php
+// $paginador = $this->paginationControl ( $this->hoteles, 'sliding', 'hoteles/index/partial/paginationControl', 
+// 		array (
+// 		'route' => $this->paginatorRoute 
+// 		)
+// );
+// $fotoService = $this->fotoService;
+?>
+<div class="row">
+<?php $vista = -1?>
+<?php foreach ($this->hoteles as $hotel):?>
+        <?php
+// 		if ($hotel['vista'] () != $vista) {
+// 			$vista = $hotel['vista'];
+// 			$vistaDesc = $this->em->getRepository( 'Hoteles\Entity\\' . $this->config['queHoteles'] . 'Hotelesviews' )
+// 			->getVistaDescription ( $hotel->getVista() );
+// 			$directorio = $fotoService->getDirectorioVista($vista);
+// 		}
+		
+			if ($hotel['portada']) {
+				$portada = 'https://www.turista.com.mx' . $hotel['portada'];
+			} else {
+				$portada = 'http://turista.me/images/hotel/' . $hotel['rating'] . 'starshotel_normal.jpg';
+			}
+		$ligaInfo = '/hotel/' . $hotel['hotelid'] . '-' . urlencode($hotel['nombre']);
+		?> 
+
+  <div class="col-xs-6 col-sm-4 col-lg-2">
+    <div class="thumbnail">
+      <a href="<?php echo $ligaInfo?>"> <img src="<?php echo $portada?>" 
+           alt="<?php echo $hotel['nombre']?>"
+           title="<?php echo $hotel['nombre']?>"
+           class="img-responsive thumbnail"></a>
+      <div class="caption">
+        <p><?php echo substr($hotel['nombre'], 0, 17)?></p>
+        <address>
+            <small><?php echo substr($hotel['direccion'],0, 20)?></small>
+        </address>
+        <?php $rooms=array()//$rooms = $this->hotelService->getHotelRooms($hotel)?>
+		<?php if ( (count($rooms) > 0) && ($hotel->getLowestrate() > 0)):?>
+			<div class ="dropdown">
+    			<a class="btn btn-default btn-sm dropdown-toggle" 
+    			   data-toggle="dropdown" 
+    			   title="Rooms Available in <?php echo $hotel->getNombre()?>"
+    			   role="button"
+    			   href="#">
+    			Rooms<?php //echo number_format($hotel->getLowestrate(),0)?>
+    			<i class="fa fa-caret-down"></i>
+    			</a>
+    			
+    			<div role="menu" class="dropdown-menu ext-dropdown-box">
+                    <div class="inner-padding">
+                        <ul class="list-unstyled">
+                        <?php foreach ($rooms as $room):?>
+    						<li>
+    						<img src="http:<?php echo $room->getImage()?>" alt="" class="img-thumbnail">
+    						<ul class="list-unstyled">
+    							<li><?php echo $room->getName()?>
+    								<ul>
+    								<?php $mealPlans = $this->hotelService->getHotelRoomMealPlans($room->getId())?>
+    								<?php foreach ($mealPlans as $mealPlan):?>
+    									<?php if ($mealPlan->getTotal() > 0):?>
+    										<li>
+    										<?php echo $mealPlan->getName()?>
+    										<?php //echo ' ' . number_format($mealPlan->getTotal(),0)?>
+    										</li>
+    									<?php endif;?>
+    								<?php endforeach;?>
+    								</ul>
+    							</li>
+    								
+    							
+    						</ul>
+    						</li>
+    					<?php endforeach;?>
+                         </ul><!-- End .mini-list --> 
+                     </div><!-- End .inner-padding -->                                                             	
+                </div>
+                
+                
+                
+			</div>
+		<?php endif;?>
+		<?php if ($hotel['promorate'] > 0) $btnbook = 'btn-primary'; else $btnbook= 'btn-success'?>
+						<a  class="btn btn-sm <?php echo $btnbook?>" 
+							target="blank"
+							href="http://www.e-tsw.com/Hoteles/Tarifas?Af=TuristaLP&Ln=ING&Ht=<?php 
+							echo $hotel['bestdayid']?>&Cu=US"
+							role="button">
+							Book it
+						</a> 
+      </div>
+    </div>
+  </div>
+
+<?php endforeach;?>
+</div>
+
+
+<div class="row">
+
+	<div class="center-block">
+		<ul class="pagination">
+		<?php echo $this->pages?>
+		</ul>
+	</div>
+</div> <!-- row -->
+

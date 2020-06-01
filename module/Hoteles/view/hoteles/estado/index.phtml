@@ -1,0 +1,23 @@
+<?php 
+$this->headTitle('Hoteles en ' . $this->estadoNombre);
+$description = '';
+if ($this->pagina > 1) {
+	$this->headtitle('Pag. ' . $this->pagina );
+	$description = 'Página ' . $this->pagina . ' del ';
+}
+$description .= 'Listado de Hoteles en el estado de ' . $this->estadoNombre
+. ' mostrando todos los hoteles disponibles en todas las ciudades de ' . $this->estadoNombre;
+$this->headmeta()->appendName('keywords','hoteles, hoteles en ' . $this->estadoNombre);
+$this->headmeta()->appendName('description', $description);
+$navEstados = $this->navigation ( 'hoteles-estados-navigation' )->toArray();
+$page = $this->navigation('navigation')->findOneBy('id', $this->layout()->hotelMenu);
+$page->addPages($navEstados);
+?>
+
+<?php echo $this->partial('/hoteles/partial/hoteles-lista', array(
+		'hoteles'        => $this->hoteles, 
+		'config'         => $this->config,
+		'fotoService'    => $this->fotoService,
+		'hotelService'   => $this->hotelService,
+		'paginatorRoute' => '/hotelesen/' . urlencode($this->estadoNombre),
+		'em'             => $this->em))?>

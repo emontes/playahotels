@@ -1,0 +1,9 @@
+<?php //\Zend\Debug\Debug::dump($this->navigation('navigation')->toArray())?>
+<div class="dropdown">
+	<a class="btn btn-default dropdown-toggle" data-toggle="dropdown"
+		href="#">Estados<i class="fa fa-caret-down"></i>
+	</a>
+	<?php
+	echo $this->navigation ( 'hoteles-estados-navigation' )->menu ()->setPartial ( 'partial/karma/nav-dropdown' )
+	?>
+</div>

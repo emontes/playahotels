@@ -1,0 +1,10 @@
+
+    <?php
+		                    echo $this->navigation('navigation')
+		                        ->setAcl($this->layout()->realAcl)
+		                        ->setRole($this->layout()->realRole)
+		                        ->menu()
+		                        ->setPartial('partial/karma/nav-actionbar')
+		                    ;
+		                    ?>
+	

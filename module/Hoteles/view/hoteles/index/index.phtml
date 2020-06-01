@@ -1,0 +1,14 @@
+<?php 
+$this->headtitle(strip_tags($this->pageTitle));	
+$description = 'Hotels Available in ' . $this->config['siteName'];
+$this->headmeta()->appendName('description', $description);
+//$navEstados = $this->navigation ( 'hoteles-estados-navigation' )->toArray();
+// $page = $this->navigation('navigation')->findOneBy('id', $this->layout()->hotelMenu);
+// $page->addPages($navEstados);
+// $page->setActive();
+
+ echo $this->partial('/hoteles/partial/hoteles-lista', array(
+		'hoteles'        => $this->hoteles, 
+		'config'         => $this->config,
+		'pages'    => $this->pages,
+        ));

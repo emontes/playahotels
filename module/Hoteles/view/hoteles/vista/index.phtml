@@ -1,0 +1,30 @@
+<?php 
+$this->headTitle($this->vistaNombre . ' hotels');
+$description = '';
+if ($this->pagina > 1) {
+	$this->headtitle('Pag. ' . $this->pagina );
+	$description = 'Page ' . $this->pagina . ' of the ';
+}
+$description .= 'List of hotels in ' . $this->vistaNombre
+. ' showing available hotels in ' . $this->vistaNombre;
+$this->headmeta()->appendName('keywords','hotels, hotels in ' . $this->vistaNombre);
+$this->headmeta()->appendName('description', $description);
+//$navEstados = $this->navigation ( 'hoteles-estados-navigation' )->toArray();
+// $page = $this->navigation('navigation')->findOneBy('id', $this->layout()->hotelMenu);
+// $page->addPages($navEstados);
+// $page2 = $this->navigation('navigation')->findOneBy('id', 'estado' . $this->estado);
+// $vistasNavigation = $this->navigation ( 'hoteles-estado-vistas-navigation' )->toArray();
+// $page2->addPages($vistasNavigation);
+// $page2->addPage(array(
+// 	'label' => '',
+// 	'icon'  => 'fa fa-location-arrow',
+// 	'class' => 'separator',
+// 	'uri'   => '#'
+// ));
+?>
+
+<?php echo $this->partial('/hoteles/partial/hoteles-lista', array(
+		'hoteles' => $this->hoteles, 
+		'config'  => $this->config,
+        'pages'   => $this->pages,
+	))?>

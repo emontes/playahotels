@@ -1,0 +1,41 @@
+<nav id="main-nav">
+    <ul class="nav navbar-nav">
+        <?php foreach ($this->container as $page): ?>
+            <?php if( ! $page->isVisible() || !$this->navigation()->accept($page)) continue; ?>
+            <li class="<?php
+            if ($page->hasChildren()) {
+                echo 'dropdown';
+            } else {
+                echo $page->getClass();
+            };
+            echo ($page->isActive() ? ' active' : '');
+            ?>">
+                <a href="<?php 
+                    echo $page->getHref(); 
+                    if ($page->hasChildren()) {
+                        echo ' class="dropdown-toggle" data-toggle="dropdown"';
+                    };
+                ?>">
+                    <?php echo $page->getLabel(); ?>
+                    <?php if ($page->hasChildren()):?>
+                        <span class="caret"></span>
+                    <?php endif;?>
+                </a>
+                <?php if (!empty($page->pages)): ?>
+                    <ul class="dropdown-menu">
+                        <?php foreach ($page->pages as $subpage): ?>
+                            <li class="
+                            <?php echo $subpage->getClass()?>
+                            <?php echo ($subpage->isActive() ? '" "active' : ''); ?>
+                            ">
+                                <a href="<?php echo $subpage->getHref(); ?>">
+                                    <?php echo $subpage->getLabel(); ?>
+                                </a>
+                            </li>
+                        <?php endforeach; ?>
+                    </ul>
+                <?php endif; ?>
+            </li>
+        <?php endforeach; ?>
+    </ul>
+</nav>

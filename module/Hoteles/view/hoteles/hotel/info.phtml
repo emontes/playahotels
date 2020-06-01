@@ -1,0 +1,70 @@
+<?php 
+$hotel = $this->hotel;
+$this->headTitle($hotel['nombre']);
+$description = substr(strip_tags($hotel['description']), 0, 150);
+$this->headmeta()->appendName('description', $description);
+//$navEstados = $this->navigation ( 'hoteles-estados-navigation' )->toArray();
+// $page = $this->navigation('navigation')->findOneBy('id', $this->layout()->hotelMenu);
+// $page->addPages($navEstados);
+// $page2 = $this->navigation('navigation')->findOneBy('id', 'estado' . $this->vista->getEstado());
+// //$vistasNavigation = $this->navigation ( 'hoteles-estado-vistas-navigation' )->toArray();
+// $page2->addPages($this->vistasNavigation);
+// $page2->addPage(array(
+//     'label' => '',
+//     'icon'  => 'fa fa-location-arrow',
+//     'class' => 'separator',
+//     'uri'   => '#'
+// ));
+?>
+
+<ul id="myTab" class="nav nav-tabs" role="tablist">
+  <li class="active"><a href="#hotel-info" role="tab" data-toggle="tab"><?php echo $hotel['nombre'] ?></a></li>
+  <li class=""><a href="#rooms-rates" role="tab" data-toggle="tab">Rates and Booking</a></li>
+</ul>
+
+                                
+<div class="tab-content ext-tabs-boxed">
+    <div id="hotel-info" class="tab-pane active">
+            <div class="inner-padding">
+            <img class="img-responsive thumbnail" src="<?php 'https://www.turista.com.mx' . $hotel['portada']?>" 
+                 alt="<?php echo $hotel['nombre']?>" 
+                 style="float: left; margin: 0px 20px 20px 0px;" 
+                 data-src="<?php echo 'https://www.turista.com.mx' . $hotel['portada']?>">
+            <?php echo $hotel['description']?> 
+            <div class="widget">
+                <header>Location</header>
+                <div class="gmap3-flex" id="hotel_map"></div>
+                <p><?php echo $hotel['location']?></p>
+            </div>
+    	</div>
+    </div>
+                                        
+                                       
+    
+    
+    
+    
+    <div id="rooms-rates" class="tab-pane">
+        <div class="embed-responsive embed-responsive-16by9">
+    		<iframe src="http://www.e-tsw.com/Hoteles/Tarifas?Af=TMexico&Ln=ING&Ht=<?php 
+    echo $hotel['bestdayid']?>&Cu=US"></iframe>
+        </div>
+    </div>
+</div>
+
+
+<script type="text/javascript">
+    $("#hotel_map").gmap3({
+    	map:{
+    	    options:{
+    	     center: [<?php echo $hotel['latitud'] . ',' . $hotel['longitud']?>],
+    	     zoom: 14
+    	    }
+    	 },
+    	marker:{
+    	    latLng:[<?php echo $hotel['latitud']?>,<?php echo $hotel['longitud']?>],
+    	    
+    	 }
+
+    });
+    </script>

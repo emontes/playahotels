@@ -1,0 +1,8 @@
+<div class="dropdown">
+	<a class="btn btn-default dropdown-toggle" data-toggle="dropdown"
+		href="#"><?php echo $this->layout()->estadoNombre?><i class="fa fa-caret-down"></i>
+	</a>
+	<?php
+	echo $this->navigation ( 'hoteles-estado-vistas-navigation' )->menu ()->setPartial ( 'partial/karma/nav-dropdown' )
+	?>
+</div>
